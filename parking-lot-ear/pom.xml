@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>hu.davidp.interview</groupId>
+        <artifactId>parking-lot-manager</artifactId>
+        <version>0.1.0</version>
+    </parent>
+    <artifactId>parking-lot-ear</artifactId>
+    <packaging>ear</packaging>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>hu.davidp.interview</groupId>
+            <artifactId>parking-lot-service-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>hu.davidp.interview</groupId>
+            <artifactId>parking-lot-service</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>hu.davidp.interview</groupId>
+            <artifactId>parking-lot-web</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>2.10.1</version>
+                <configuration>
+                    <finalName>parking-lot-manager-app</finalName>
+                    <version>7</version>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <modules>
+                        <ejbModule>
+                            <groupId>hu.davidp.interview</groupId>
+                            <artifactId>parking-lot-service</artifactId>
+                        </ejbModule>
+                        <webModule>
+                            <groupId>hu.davidp.interview</groupId>
+                            <artifactId>parking-lot-web</artifactId>
+                            <contextRoot>parking-lot</contextRoot>
+                        </webModule>
+                    </modules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

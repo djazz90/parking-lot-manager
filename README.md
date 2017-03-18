@@ -1,2 +1,2 @@
 # parking-lot-manager
-Parking lot manager web application, created for the interview.
+Parking lot manager web application, created for the Semper Idem interview.

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+    <artifactId>parking-lot-manager</artifactId>
+    <groupId>hu.davidp.interview</groupId>
+    <version>0.1.0</version>
+  </parent>
+
+    <groupId>hu.davidp.interview</groupId>
+    <artifactId>parking-lot-service</artifactId>
+    <version>0.1.0</version>
+    <packaging>ejb</packaging>
+
+    <name>parking-lot-service</name>
+
+    <properties>
+        <dir.codequality>${project.parent.basedir}/code-quality</dir.codequality>
+        <ejb.version>3.1</ejb.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>parking-lot-service-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+        <!-- enterprise dependency -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+        </dependency>
+    </dependencies>
+
+   <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <!-- Code Quality Plugins -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+            </plugin>
+            <!-- /Code Quality Plugins -->
+
+            <plugin>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <ejbVersion>${ejb.version}</ejbVersion>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
