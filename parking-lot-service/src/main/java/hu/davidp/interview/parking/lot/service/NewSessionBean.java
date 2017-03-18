@@ -1,16 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.davidp.interview.parking.lot.service;
 
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
 
-/**
- *
- * @author martin
- */
 @Stateless
 @LocalBean
 public class NewSessionBean {

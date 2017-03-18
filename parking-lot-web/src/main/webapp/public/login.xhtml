@@ -1,15 +1,32 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-        template="/templates/masterLayout.xhtml">
-	<ui:define name="head-extra">
-		<!-- custom css -->
-	</ui:define>
-	<ui:define name="pageTitle">Hello World!</ui:define>
-	<ui:define name="content">
-            <p:outputLabel value="hi"/>
-            <p:commandButton value="Hello World"></p:commandButton>
-	</ui:define>
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/masterLayout.xhtml">
+    <ui:define name="head-extra">
+        <!-- custom css -->
+    </ui:define>
+    <ui:define name="pageTitle">Hello World!</ui:define>
+    <ui:define name="content">
+        <p:commandButton value="Hello World"></p:commandButton>
+
+        <p:dataTable var="car" value="#{carRegistryView.listAllCars()}">
+            <p:column headerText="Rendszám">
+                <h:outputText value="#{car.licensePlateNumber}" />
+            </p:column>
+
+            <p:column headerText="Márka">
+                <h:outputText value="#{car.brand}" />
+            </p:column>
+
+            <p:column headerText="Típus">
+                <h:outputText value="#{car.type}" />
+            </p:column>
+
+            <p:column headerText="Szín">
+                <h:outputText value="#{car.color}" />
+            </p:column>
+        </p:dataTable>
+    </ui:define>
 </ui:composition>

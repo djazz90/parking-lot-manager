@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Car {
+
     private String licensePlateNumber;
     private String brand;
     private String type;
-    private String color;  
+    private String color;
 }
