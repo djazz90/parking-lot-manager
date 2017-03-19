@@ -26,18 +26,12 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>public/login.xhtml</welcome-file>
+        <welcome-file>public/cars.xhtml</welcome-file>
     </welcome-file-list>
     
     <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>omega</param-value>
     </context-param>
-
-    <!--    <ejb-ref>
-        <ejb-ref-name>ejb.clientActivityService</ejb-ref-name>
-        <remote>hu.schonherz.training.helpdesk.service.api.service.ClientActivityService</remote>
-    </ejb-ref>-->
-
 
 </web-app>

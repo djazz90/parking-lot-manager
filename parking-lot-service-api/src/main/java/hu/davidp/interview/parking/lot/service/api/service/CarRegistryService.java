@@ -6,5 +6,6 @@ import java.util.List;
 public interface CarRegistryService {
 
     List<Car> findAll();
+    void addCar(Car car);
 
 }

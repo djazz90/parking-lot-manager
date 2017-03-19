@@ -16,4 +16,15 @@ public class CarRegistryBean implements CarRegistryService {
         return WebAppData.getCars();
     }
 
+    @Override
+    public void addCar(final Car car) {
+        Car newCar = Car.builder()
+                .licensePlateNumber(car.getLicensePlateNumber())
+                .brand(car.getBrand())
+                .type(car.getType())
+                .color(car.getColor())
+                .build();
+        WebAppData.addCar(newCar);
+    }
+
 }

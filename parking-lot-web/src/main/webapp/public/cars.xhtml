@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/masterLayout.xhtml">
+    <ui:define name="head-extra">
+        <!-- custom css -->
+    </ui:define>
+    <ui:define name="pageTitle">Autó nyílvántartó felület</ui:define>
+    <ui:define name="content">
+        <p:commandButton value="Autó hozzáadása" onclick="PF('addCarDialog').show();"></p:commandButton>
+
+        <p:dialog header="Modal Dialog" widgetVar="addCarDialog" modal="true" height="100">
+            <h:form id ="addCar">
+                <p:outputLabel value="Rendszám"></p:outputLabel>
+                <p:inputText label="Rendszám" value="#{addCarForm.car.licensePlateNumber}"></p:inputText>
+                <p:inputText label="Márka" value="#{addCarForm.car.brand}"></p:inputText>
+                <p:inputText label="Típus" value="#{addCarForm.car.type}"></p:inputText>
+                <p:inputText label="Szín" value="#{addCarForm.car.color}"></p:inputText>
+                <p:commandButton value="Elküldés" action="#{addCarForm.submit()}" onclick="PF('addCarDialog').hide();" update="carTable" >
+
+                </p:commandButton>
+            </h:form>
+        </p:dialog> 
+        <h:form id ="carTable">
+            <p:dataTable var="car" value="#{carRegistryView.listAllCars()}">
+                <p:column headerText="Rendszám">
+                    <h:outputText value="#{car.licensePlateNumber}" />
+                </p:column>
+
+                <p:column headerText="Márka">
+                    <h:outputText value="#{car.brand}" />
+                </p:column>
+
+                <p:column headerText="Típus">
+                    <h:outputText value="#{car.type}" />
+                </p:column>
+
+                <p:column headerText="Szín">
+                    <h:outputText value="#{car.color}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

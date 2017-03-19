@@ -1,4 +1,4 @@
-package hu.davidp.interview.parking.lot.web.managedbeans;
+package hu.davidp.interview.parking.lot.web.managedbeans.view;
 
 import hu.davidp.interview.parking.lot.service.api.service.CarRegistryService;
 import hu.davidp.interview.parking.lot.service.api.vo.Car;

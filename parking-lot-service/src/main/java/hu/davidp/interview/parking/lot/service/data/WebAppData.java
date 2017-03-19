@@ -9,14 +9,14 @@ import lombok.Setter;
 
 public final class WebAppData {
 
-    private static WebAppData data;
+    private static final WebAppData DATA;
 
     @Getter
     @Setter
     private static List<Car> cars;
 
     static {
-        data = new WebAppData();
+        DATA = new WebAppData();
         //dummy data initialization
         Car c1 = Car.builder()
                 .brand("Suzuki")
@@ -47,7 +47,11 @@ public final class WebAppData {
     }
 
     public static WebAppData getInstance() {
-        return data;
+        return DATA;
+    }
+
+    public static void addCar(final Car car) {
+        cars.add(car);
     }
 
 }
