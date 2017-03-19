@@ -9,16 +9,29 @@
     </ui:define>
     <ui:define name="pageTitle">Autó nyílvántartó felület</ui:define>
     <ui:define name="content">
+        <p:growl id="growl" showDetail="true" />  
         <p:commandButton value="Autó hozzáadása" onclick="PF('addCarDialog').show();"></p:commandButton>
 
-        <p:dialog header="Modal Dialog" widgetVar="addCarDialog" modal="true" height="100">
+        <p:dialog header="Autó hozzáadása" widgetVar="addCarDialog" modal="true" height="200" showEffect="fade" hideEffect="fade">
             <h:form id ="addCar">
-                <p:outputLabel value="Rendszám"></p:outputLabel>
-                <p:inputText label="Rendszám" value="#{addCarForm.car.licensePlateNumber}"></p:inputText>
-                <p:inputText label="Márka" value="#{addCarForm.car.brand}"></p:inputText>
-                <p:inputText label="Típus" value="#{addCarForm.car.type}"></p:inputText>
-                <p:inputText label="Szín" value="#{addCarForm.car.color}"></p:inputText>
-                <p:commandButton value="Elküldés" action="#{addCarForm.submit()}" onclick="PF('addCarDialog').hide();" update="carTable" >
+                <h:panelGrid id="grid" columns="3" cellpadding="5">
+                    <p:outputLabel for="licensePlateInput" value="Rendszám:"/>
+                    <p:inputText id="licensePlateInput" value="#{addCarForm.car.licensePlateNumber}" required="true"/>
+                    <p:message for="licensePlateInput" />
+
+                    <p:outputLabel for="brandInput" value="Márka:"/>
+                    <p:inputText id="brandInput" value="#{addCarForm.car.brand}" required="true"></p:inputText>
+                    <p:message for="brandInput" />
+
+                    <p:outputLabel for="typeInput" value="Típus:"/>
+                    <p:inputText id="typeInput" value="#{addCarForm.car.type}" required="true"/>
+                    <p:message for="typeInput" />
+
+                    <p:outputLabel for="colorInput" value="Szín:"/>
+                    <p:inputText id="colorInput" value="#{addCarForm.car.color}" required="true"/>
+                    <p:message for="colorInput" />
+                </h:panelGrid>
+                <p:commandButton value="Elküldés" action="#{addCarForm.submit()}" update="grid carTable growl" ajax="true" type="submit">
 
                 </p:commandButton>
             </h:form>
