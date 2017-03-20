@@ -5,7 +5,6 @@
  */
 package hu.davidp.interview.parking.lot.web.managedbeans.request;
 
-import hu.davidp.interview.parking.lot.service.api.exception.CarNotFoundException;
 import hu.davidp.interview.parking.lot.service.api.service.CarRegistryService;
 import hu.davidp.interview.parking.lot.service.api.vo.Car;
 import javax.annotation.PostConstruct;
@@ -33,11 +32,10 @@ public class AddCarForm {
 
     public void submit() {
         FacesContext context = FacesContext.getCurrentInstance();
-        try {
-            carRegistryService.findByLicensePlateNumber(car.getLicensePlateNumber());
+        if (carRegistryService.containsCar(car.getLicensePlateNumber())) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "A mentés sikertelen!",
                     String.format("A(z) %s rendszámmal rendelkező autó már szerepel az adatbázisban!", car.getLicensePlateNumber())));
-        } catch (CarNotFoundException ex) {
+        } else {
             carRegistryService.addCar(car);
             context.addMessage(null, new FacesMessage("Sikeres mentés!", String.format("A(z) %s rendszámmal rendelkező autó mentésre került",
                     car.getLicensePlateNumber())));

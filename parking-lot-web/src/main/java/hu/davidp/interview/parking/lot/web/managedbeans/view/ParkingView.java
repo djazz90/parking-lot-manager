@@ -17,6 +17,7 @@ import lombok.Data;
 public class ParkingView {
 
     private String licensePlateNum;
+    private Car selectedCar;
 
     @EJB
     private CarRegistryService carRegistryService;
@@ -25,7 +26,11 @@ public class ParkingView {
     private ParkingLotService parkingLotService;
 
     public Car getSelectedCar() throws CarNotFoundException {
-        return carRegistryService.findByLicensePlateNumber(licensePlateNum);
+        if (selectedCar == null) {
+
+            selectedCar = carRegistryService.findByLicensePlateNumber(licensePlateNum);
+        }
+        return selectedCar;
     }
 
     public List<ParkingLot> getAvailableParkingLots() {

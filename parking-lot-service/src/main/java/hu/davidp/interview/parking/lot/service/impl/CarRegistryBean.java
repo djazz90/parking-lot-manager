@@ -1,5 +1,6 @@
 package hu.davidp.interview.parking.lot.service.impl;
 
+import hu.davidp.interview.parking.lot.service.api.exception.CarIsAlreadyInAParkingLotException;
 import hu.davidp.interview.parking.lot.service.api.exception.CarNotFoundException;
 import hu.davidp.interview.parking.lot.service.api.service.CarRegistryService;
 import hu.davidp.interview.parking.lot.service.api.vo.Car;
@@ -39,6 +40,30 @@ public class CarRegistryBean implements CarRegistryService {
         }
         throw new CarNotFoundException("Nincs autó az adatbázisban a következő rendszámmal: " + licensePlateNumber);
 
+    }
+
+    @Override
+    public boolean containsCar(final String licensePlateNumber) {
+        try {
+            findByLicensePlateNumber(licensePlateNumber);
+            return true;
+        } catch (CarNotFoundException ex) {
+            return false;
+        }
+    }
+
+    @Override
+    public String deleteCar(final Car car) throws CarNotFoundException, CarIsAlreadyInAParkingLotException {
+        if (car != null) {
+            if (car.getActualParkingLot() != null) {
+                throw new CarIsAlreadyInAParkingLotException("Olyan autó nem törölhető, ami parkolóban van!");
+            }
+            if (WebAppData.getCars().contains(car)) {
+                WebAppData.getCars().remove(car);
+                return car.getLicensePlateNumber();
+            }
+        }
+        throw new CarNotFoundException("Nincs ilyen autó az adatbázisban, kérjük válasszon ki egy létező autót!");
     }
 
 }
