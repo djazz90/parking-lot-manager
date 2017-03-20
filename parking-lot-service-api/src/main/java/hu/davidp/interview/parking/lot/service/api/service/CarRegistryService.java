@@ -1,6 +1,6 @@
 package hu.davidp.interview.parking.lot.service.api.service;
 
-import hu.davidp.interview.parking.lot.service.api.CarNotFoundException;
+import hu.davidp.interview.parking.lot.service.api.exception.CarNotFoundException;
 import hu.davidp.interview.parking.lot.service.api.vo.Car;
 import java.util.List;
 

@@ -14,30 +14,29 @@
 
         <p:dialog header="Autó hozzáadása" widgetVar="addCarDialog" modal="true" height="200" showEffect="fade" hideEffect="fade">
             <h:form id ="addCar">
-                <h:panelGrid id="grid" columns="3" cellpadding="5">
+                <h:panelGrid id="grid" columns="2" cellpadding="10">
                     <p:outputLabel for="licensePlateInput" value="Rendszám:"/>
                     <p:inputText id="licensePlateInput" value="#{addCarForm.car.licensePlateNumber}" required="true"/>
-                    <p:message for="licensePlateInput" />
 
                     <p:outputLabel for="brandInput" value="Márka:"/>
                     <p:inputText id="brandInput" value="#{addCarForm.car.brand}" required="true"></p:inputText>
-                    <p:message for="brandInput" />
 
                     <p:outputLabel for="typeInput" value="Típus:"/>
                     <p:inputText id="typeInput" value="#{addCarForm.car.type}" required="true"/>
-                    <p:message for="typeInput" />
 
                     <p:outputLabel for="colorInput" value="Szín:"/>
                     <p:inputText id="colorInput" value="#{addCarForm.car.color}" required="true"/>
-                    <p:message for="colorInput" />
                 </h:panelGrid>
-                <p:commandButton value="Elküldés" action="#{addCarForm.submit()}" update="grid carTable growl" ajax="true" type="submit">
+                <p:commandButton value="Elküldés" action="#{addCarForm.submit()}" update="grid carTable growl" ajax="true" type="submit" oncomplete="PF('addCarDialog').hide();">
 
                 </p:commandButton>
             </h:form>
         </p:dialog> 
         <h:form id ="carTable">
-            <p:dataTable var="car" value="#{carRegistryView.listAllCars()}">
+            <p:dataTable var="car" value="#{carRegistryView.listAllCars()}"
+                         selectionMode="single" selection="#{carRegistryView.selectedCar}" rowKey="#{car.licensePlateNumber}">
+                <p:ajax event="rowSelect" update="parkingButton" />
+                <p:ajax event="rowUnselect" update="parkingButton" />
                 <p:column headerText="Rendszám">
                     <h:outputText value="#{car.licensePlateNumber}" />
                 </p:column>
@@ -55,5 +54,9 @@
                 </p:column>
             </p:dataTable>
         </h:form>
+
+        <p:button value="Parkolás >" outcome="parking" id="parkingButton">
+            <f:param id="requestParam" name="licensePlateNum" value="#{carRegistryView.selectedCar.licensePlateNumber}"></f:param>
+        </p:button>
     </ui:define>
 </ui:composition>

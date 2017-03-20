@@ -1,4 +1,4 @@
-package hu.davidp.interview.parking.lot.service.api;
+package hu.davidp.interview.parking.lot.service.api.exception;
 
 /**
  *

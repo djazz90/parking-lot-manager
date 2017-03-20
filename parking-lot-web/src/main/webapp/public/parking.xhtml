@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/templates/masterLayout.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:define name="head-extra">
+        <!-- custom css -->
+    </ui:define>
+    <ui:define name="pageTitle">Parkoló felület</ui:define>
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="licensePlateNum" value="#{parkingView.licensePlateNum}" />
+        </f:metadata>
+
+        <p:panel id="basic" header="Autó információk" style="margin-bottom:20px">
+            <ui:param name="car" value="#{parkingView.selectedCar}"/>
+            <p:panelGrid columns="2">
+
+
+                <h:outputText value="Rendszám:"/>
+                <h:outputText value="#{car.licensePlateNumber}" />
+
+                <h:outputText value="Márka:"/>
+                <h:outputText value="#{car.brand}" />
+
+                <h:outputText value="Típus:"/>
+                <h:outputText value="#{car.type}" />
+
+                <h:outputText value="Szín:"/>
+                <h:outputText value="#{car.color}" />
+
+                <h:outputText value="Parkolóház:"/>
+                <h:outputText value="#{car.actualParkingLot.name}" />
+
+                <h:outputText value="Parkolás kezdete:"/>
+                <h:outputText value="#{car.parkingFrom}" />
+
+                <h:outputText value="Parkolás vége:"/>
+                <h:outputText value="#{car.parkingTo}" />
+            </p:panelGrid>
+        </p:panel>
+
+        <h3>Válasszon parkolót:</h3>
+        <p:tabView>
+<!--            <p:ajax event="tabChange" listener="#{tabbedView.onTabChange}" update=":form:msgs"/>
+            <p:ajax event="tabClose" listener="#{tabbedView.onTabClose}" update=":form:msgs"/>-->
+            <c:forEach var="parkingLot" items="#{parkingView.availableParkingLots}">
+                <p:tab title="#{parkingLot.name}">
+                    <h:panelGrid columns="2" cellpadding="10">
+                        
+                    </h:panelGrid>
+                </p:tab>
+            </c:forEach>
+
+        </p:tabView>
+        <p:button value="Vissza" outcome="cars" />
+            
+    </ui:define>
+</ui:composition>

@@ -1,6 +1,6 @@
 package hu.davidp.interview.parking.lot.service.impl;
 
-import hu.davidp.interview.parking.lot.service.api.CarNotFoundException;
+import hu.davidp.interview.parking.lot.service.api.exception.CarNotFoundException;
 import hu.davidp.interview.parking.lot.service.api.service.CarRegistryService;
 import hu.davidp.interview.parking.lot.service.api.vo.Car;
 import hu.davidp.interview.parking.lot.service.data.WebAppData;

@@ -5,7 +5,7 @@
  */
 package hu.davidp.interview.parking.lot.web.managedbeans.request;
 
-import hu.davidp.interview.parking.lot.service.api.CarNotFoundException;
+import hu.davidp.interview.parking.lot.service.api.exception.CarNotFoundException;
 import hu.davidp.interview.parking.lot.service.api.service.CarRegistryService;
 import hu.davidp.interview.parking.lot.service.api.vo.Car;
 import javax.annotation.PostConstruct;
