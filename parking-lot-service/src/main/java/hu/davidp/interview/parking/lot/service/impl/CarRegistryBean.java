@@ -2,9 +2,12 @@ package hu.davidp.interview.parking.lot.service.impl;
 
 import hu.davidp.interview.parking.lot.service.api.exception.CarIsAlreadyInAParkingLotException;
 import hu.davidp.interview.parking.lot.service.api.exception.CarNotFoundException;
+import hu.davidp.interview.parking.lot.service.api.exception.ParkingIntervalIsIncorrectException;
 import hu.davidp.interview.parking.lot.service.api.service.CarRegistryService;
 import hu.davidp.interview.parking.lot.service.api.vo.Car;
+import hu.davidp.interview.parking.lot.service.api.vo.ParkingLot;
 import hu.davidp.interview.parking.lot.service.data.WebAppData;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.ejb.Local;
@@ -63,7 +66,24 @@ public class CarRegistryBean implements CarRegistryService {
                 return car.getLicensePlateNumber();
             }
         }
-        throw new CarNotFoundException("Nincs ilyen autó az adatbázisban, kérjük válasszon ki egy létező autót!");
+        throw new CarNotFoundException("Nincs ilyen autó az adatbázisban!");
+    }
+
+    @Override
+    public void modifyParkingLotAndDateInterval(final String licensePlateNumber, final ParkingLot parkingLot,
+            final Date parkingFrom, final Date parkingTo) throws CarNotFoundException, ParkingIntervalIsIncorrectException {
+        if (parkingFrom == null || parkingTo == null) {
+            throw new ParkingIntervalIsIncorrectException("A parkolás kezdete vagy vége nincs megadva!");
+        }
+
+        if (parkingTo.before(parkingFrom)) {
+            throw new ParkingIntervalIsIncorrectException("A parkolás vége hamarabb van, mint annak kezdete!");
+        }
+
+        Car actualCar = findByLicensePlateNumber(licensePlateNumber);
+        actualCar.setActualParkingLot(parkingLot);
+        actualCar.setParkingFrom(parkingFrom);
+        actualCar.setParkingTo(parkingTo);
     }
 
 }

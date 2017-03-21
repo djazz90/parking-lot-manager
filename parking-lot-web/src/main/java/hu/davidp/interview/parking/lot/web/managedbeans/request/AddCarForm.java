@@ -37,7 +37,7 @@ public class AddCarForm {
                     String.format("A(z) %s rendszámmal rendelkező autó már szerepel az adatbázisban!", car.getLicensePlateNumber())));
         } else {
             carRegistryService.addCar(car);
-            context.addMessage(null, new FacesMessage("Sikeres mentés!", String.format("A(z) %s rendszámmal rendelkező autó mentésre került",
+            context.addMessage(null, new FacesMessage("A mentés sikeres!", String.format("A(z) %s rendszámmal rendelkező autó mentésre került!",
                     car.getLicensePlateNumber())));
             init();
         }

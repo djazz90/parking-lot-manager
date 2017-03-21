@@ -35,7 +35,7 @@ public class CarRegistryView {
             selectedCar = null;
         } catch (CarNotFoundException | CarIsAlreadyInAParkingLotException ex) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "A törlés sikertelen!",
-                    ex.getMessage()));
+                    ex.getMessage() + " Kérjük válasszon ki egy létező autót!"));
         }
     }
 

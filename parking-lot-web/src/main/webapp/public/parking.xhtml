@@ -14,7 +14,8 @@
             <f:viewParam name="licensePlateNum" value="#{parkingView.licensePlateNum}" />
         </f:metadata>
 
-        <p:panel id="basic" header="Autó információk" style="margin-bottom:20px">
+        <p:growl id="growl" showDetail="true" />
+        <p:panel id="carTable" header="Autó információk" style="margin-bottom:20px">
             <ui:param name="car" value="#{parkingView.selectedCar}"/>
             <p:panelGrid columns="2">
 
@@ -43,19 +44,26 @@
         </p:panel>
 
         <h3>Válasszon parkolót:</h3>
-        <p:tabView>
-<!--            <p:ajax event="tabChange" listener="#{tabbedView.onTabChange}" update=":form:msgs"/>
-            <p:ajax event="tabClose" listener="#{tabbedView.onTabClose}" update=":form:msgs"/>-->
-            <c:forEach var="parkingLot" items="#{parkingView.availableParkingLots}">
-                <p:tab title="#{parkingLot.name}">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        
-                    </h:panelGrid>
-                </p:tab>
-            </c:forEach>
+        <h:form id="tabForm">
+            <p:tabView var="parkingDetails" value="#{parkingView.parkingDetailsList}">
+                <p:tab title="#{parkingDetails.parkingLot.name}">
 
-        </p:tabView>
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:outputLabel for="parkFromInput" value="Parkolás kezdete:" />
+                        <p:calendar id="parkFromInput" value="#{parkingDetails.parkFrom}" pattern="yyyy-MM-dd HH:mm:ss"/>
+
+                        <p:outputLabel for="parkToInput" value="Parkolás vége:" />
+                        <p:calendar id="parkToInput"  value="#{parkingDetails.parkTo}" pattern="yyyy-MM-dd HH:mm:ss"/>
+
+                    </h:panelGrid>
+                    <p:commandButton action="#{parkingView.park(parkingDetails)}" update="carTable growl tabForm" value="Parkolás >" ajax="true" type="submit"/>
+
+                </p:tab>
+
+            </p:tabView>
+        </h:form>
+
         <p:button value="Vissza" outcome="cars" />
-            
+
     </ui:define>
 </ui:composition>
