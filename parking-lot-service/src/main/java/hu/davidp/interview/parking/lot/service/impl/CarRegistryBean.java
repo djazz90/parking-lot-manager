@@ -14,6 +14,11 @@ import java.util.stream.Collectors;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
+/**
+ * EJB implementation of {@link CarRegistryService}
+ *
+ * @author pintyo
+ */
 @Stateless(mappedName = "CarRegistryService")
 @Local(CarRegistryService.class)
 public class CarRegistryBean implements CarRegistryService {
@@ -31,7 +36,7 @@ public class CarRegistryBean implements CarRegistryService {
                 .type(car.getType())
                 .color(car.getColor())
                 .build();
-        WebAppData.addCar(newCar);
+        WebAppData.getCars().add(newCar);
     }
 
     @Override

@@ -15,13 +15,12 @@
         </f:metadata>
 
         <p:growl id="growl" showDetail="true" />
-        <p:panel id="carTable" header="Autó információk" style="margin-bottom:10px">
+        <p:panel id="carTable" header="Autó információk" style="margin-bottom:10px" rendered="#{not empty parkingView.selectedCar}">
             <div class="ui-g">
                 <!--car details-->
                 <div class="ui-g-6">
                 <ui:param name="car" value="#{parkingView.selectedCar}"/>
                 <p:panelGrid columns="2">
-
 
                     <h:outputText value="Rendszám:"/>
                     <h:outputText value="#{car.licensePlateNumber}" />

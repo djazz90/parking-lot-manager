@@ -5,6 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * The object representation of the parking lots that the application manages.
+ *
+ * @author pintyo
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

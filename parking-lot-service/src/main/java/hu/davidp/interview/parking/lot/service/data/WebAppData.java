@@ -15,6 +15,13 @@ import java.util.logging.Logger;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The static list database of the application.
+ *
+ * @author pintyo
+ */
+//Prevents build failure. Warnings suppressed, because PMD doesn't recognize the getters and setters provided by lombok.
+@SuppressWarnings("PMD")
 public final class WebAppData {
 
     @Getter
@@ -83,10 +90,6 @@ public final class WebAppData {
     }
 
     private WebAppData() {
-    }
-
-    public static void addCar(final Car car) {
-        cars.add(car);
     }
 
 }

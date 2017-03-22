@@ -19,6 +19,12 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import lombok.Data;
 
+/**
+ * This is the backing bean that shows the parking lot information to the user. Also helps to add parking information to
+ * any car in the database.
+ *
+ * @author pintyo
+ */
 @ManagedBean(name = "parkingView")
 @ViewScoped
 @Data
@@ -27,11 +33,9 @@ public class ParkingView {
     private String licensePlateNum;
     private Car selectedCar;
 
-    /**
-     * This object holds all the tabs data on the parking page.
-     */
     //PMD warnings are suppressed, because it just checks the compiled class file, and not the page.
     //PMD states that this should be a local variable, because nothing is using it in this class.
+    //The page is using this object very heavily, and the PMD plugin does not check it, so its warnings should be suppressed.
     @SuppressWarnings("PMD")
     private List<ParkingDetails> parkingDetailsList;
 
@@ -41,6 +45,9 @@ public class ParkingView {
     @EJB
     private ParkingLotService parkingLotService;
 
+    /**
+     * Gets all information from the database to provide proper tabs on the parking page.
+     */
     @PostConstruct
     public void init() {
 
@@ -55,6 +62,12 @@ public class ParkingView {
                 });
     }
 
+    /**
+     * Gets the selected car and caches with the help of the license plate number (that is passed via request
+     * parameter).
+     *
+     * @return
+     */
     public Car getSelectedCar() {
         //This kind of "caching" is needed, because the selected car wouldn't be obtainable in the init method
         //in a regular way. The selected car's license plate number comes from a request parameter, and it is not available
@@ -70,10 +83,22 @@ public class ParkingView {
         return selectedCar;
     }
 
+    /**
+     * Gets all the parking lots in the database.
+     *
+     * @return a list representation of all parking lots
+     */
     public List<ParkingLot> getAvailableParkingLots() {
         return parkingLotService.findAll();
     }
 
+    /**
+     * Updates the parking information of the actually selected car. If any data is invalid or the save is successful,
+     * the user will be prompted.
+     *
+     * @param parkingDetails
+     * @throws CarNotFoundException
+     */
     public void park(final ParkingDetails parkingDetails) throws CarNotFoundException {
 
         FacesContext context = FacesContext.getCurrentInstance();

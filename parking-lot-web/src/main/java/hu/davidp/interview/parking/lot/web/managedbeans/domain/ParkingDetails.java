@@ -7,6 +7,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * This is a helper object that represents all data on a tab on the parking page.
+ *
+ * @author pintyo
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,5 +21,4 @@ public class ParkingDetails {
     private ParkingLot parkingLot;
     private Date parkFrom;
     private Date parkTo;
-    private String name;
 }

@@ -7,6 +7,11 @@ import java.util.List;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
+/**
+ * EJB representation of {@link ParkingLotService}
+ *
+ * @author pintyo
+ */
 @Stateless(mappedName = "ParkingLotService")
 @Local(ParkingLotService.class)
 public class ParkingLotBean implements ParkingLotService {
@@ -15,6 +20,5 @@ public class ParkingLotBean implements ParkingLotService {
     public List<ParkingLot> findAll() {
         return WebAppData.getParkingLots();
     }
-
 
 }
