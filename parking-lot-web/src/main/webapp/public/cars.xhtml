@@ -7,12 +7,12 @@
     <ui:define name="head-extra">
         <h:outputStylesheet library="css" name="cars.css" />
     </ui:define>
-    <ui:define name="pageTitle">Autó nyílvántartó felület</ui:define>
+    <ui:define name="pageTitle">Autó nyilvántartó felület</ui:define>
     <ui:define name="content">
         <p:growl id="growl" showDetail="true" />  
-        <p:commandButton value="Autó hozzáadása" onclick="PF('addCarDialog').show();"></p:commandButton>
+        <p:commandButton value="Autó hozzáadása" onclick="PF('addCarDialog').show();" icon="fa fa-plus" id="addCarButton"></p:commandButton>
 
-        <p:dialog header="Autó hozzáadása" widgetVar="addCarDialog" modal="true" height="200" showEffect="fade" hideEffect="fade">
+        <p:dialog header="Autó hozzáadása" widgetVar="addCarDialog" modal="true" height="250" showEffect="fade" hideEffect="fade">
             <h:form id ="addCar">
                 <h:panelGrid id="grid" columns="2" cellpadding="10">
                     <p:outputLabel for="licensePlateInput" value="Rendszám:"/>
@@ -27,7 +27,7 @@
                     <p:outputLabel for="colorInput" value="Szín:"/>
                     <p:inputText id="colorInput" value="#{addCarForm.car.color}" required="true"/>
                 </h:panelGrid>
-                <p:commandButton value="Elküldés" action="#{addCarForm.submit()}" update="grid carTable growl" ajax="true" type="submit" oncomplete="PF('addCarDialog').hide();">
+                <p:commandButton value="Elküldés" action="#{addCarForm.submit()}" update="grid carTable growl" ajax="true" type="submit" oncomplete="PF('addCarDialog').hide();" icon="fa fa-check">
 
                 </p:commandButton>
             </h:form>
@@ -58,16 +58,20 @@
                 </p:column>
 
                 <f:facet name="footer">
-                    <p:commandButton action="#{carRegistryView.removeSelectedCar()}" update="carTable growl" icon="fa fa-remove" title="Autó törlése" styleClass="facetFooter"/>
+                    <p:commandButton action="#{carRegistryView.removeSelectedCar()}" update="carTable growl" icon="fa fa-remove" title="Autó törlése" value="Autó törlése" styleClass="facetFooter"/>
+                    <p:commandButton action="#{carRegistryView.removeCarFromParkingLot()}" update="carTable growl" icon="fa fa-chevron-left" title="Autó törlése parkolóból" value="Kiparkolás" styleClass="facetFooter"/>
+                    <p:button value="Parkolás" outcome="parking" icon="fa fa-chevron-right" iconPos="right" id="parkingButton" disabled="#{empty carRegistryView.selectedCar}">
+                        <f:param id="requestParam" name="licensePlateNum" value="#{carRegistryView.selectedCar.licensePlateNumber}"></f:param>
+                    </p:button>
                 </f:facet>
 
             </p:dataTable>
 
         </h:form>
 
-        <p:button value="Parkolás >" outcome="parking" id="parkingButton">
-            <f:param id="requestParam" name="licensePlateNum" value="#{carRegistryView.selectedCar.licensePlateNumber}"></f:param>
-        </p:button>
+
+
+
 
     </ui:define>
 </ui:composition>

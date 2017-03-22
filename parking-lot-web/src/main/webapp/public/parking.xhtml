@@ -6,7 +6,7 @@
                 template="/templates/masterLayout.xhtml"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:define name="head-extra">
-        <!-- custom css -->
+        <h:outputStylesheet library="css" name="parking.css" />
     </ui:define>
     <ui:define name="pageTitle">Parkoló felület</ui:define>
     <ui:define name="content">
@@ -15,55 +15,66 @@
         </f:metadata>
 
         <p:growl id="growl" showDetail="true" />
-        <p:panel id="carTable" header="Autó információk" style="margin-bottom:20px">
-            <ui:param name="car" value="#{parkingView.selectedCar}"/>
-            <p:panelGrid columns="2">
+        <p:panel id="carTable" header="Autó információk" style="margin-bottom:10px">
+            <div class="ui-g">
+                <!--car details-->
+                <div class="ui-g-6">
+                <ui:param name="car" value="#{parkingView.selectedCar}"/>
+                <p:panelGrid columns="2">
 
 
-                <h:outputText value="Rendszám:"/>
-                <h:outputText value="#{car.licensePlateNumber}" />
+                    <h:outputText value="Rendszám:"/>
+                    <h:outputText value="#{car.licensePlateNumber}" />
 
-                <h:outputText value="Márka:"/>
-                <h:outputText value="#{car.brand}" />
+                    <h:outputText value="Márka:"/>
+                    <h:outputText value="#{car.brand}" />
 
-                <h:outputText value="Típus:"/>
-                <h:outputText value="#{car.type}" />
+                    <h:outputText value="Típus:"/>
+                    <h:outputText value="#{car.type}" />
 
-                <h:outputText value="Szín:"/>
-                <h:outputText value="#{car.color}" />
+                    <h:outputText value="Szín:"/>
+                    <h:outputText value="#{car.color}" />
 
-                <h:outputText value="Parkolóház:"/>
-                <h:outputText value="#{car.actualParkingLot.name}" />
+                    <h:outputText value="Parkolóház:"/>
+                    <h:outputText value="#{car.actualParkingLot.name}" />
 
-                <h:outputText value="Parkolás kezdete:"/>
-                <h:outputText value="#{car.parkingFrom}" />
+                    <h:outputText value="Parkolás kezdete:"/>
+                    <h:outputText value="#{car.parkingFrom}" />
 
-                <h:outputText value="Parkolás vége:"/>
-                <h:outputText value="#{car.parkingTo}" />
-            </p:panelGrid>
+                    <h:outputText value="Parkolás vége:"/>
+                    <h:outputText value="#{car.parkingTo}" />
+                </p:panelGrid>
+
+                </div>
+                <!--/car details-->
+                
+                <!--parking-->
+                <div class="ui-g-6">
+                <p>Válasszon új parkolót:</p>
+
+                <h:form id="tabForm">
+                    <p:tabView var="parkingDetails" value="#{parkingView.parkingDetailsList}">
+                        <p:tab title="#{parkingDetails.parkingLot.name}">
+
+                            <h:panelGrid columns="2" cellpadding="10">
+                                <p:outputLabel for="parkFromInput" value="Parkolás kezdete:" />
+                                <p:calendar id="parkFromInput" value="#{parkingDetails.parkFrom}" pattern="yyyy-MM-dd HH:mm:ss"/>
+
+                                <p:outputLabel for="parkToInput" value="Parkolás vége:" />
+                                <p:calendar id="parkToInput"  value="#{parkingDetails.parkTo}" pattern="yyyy-MM-dd HH:mm:ss"/>
+
+                            </h:panelGrid>
+                            <p:commandButton action="#{parkingView.park(parkingDetails)}" update="carTable growl tabForm" value="Parkolás" icon="fa fa-chevron-right" iconPos="right" ajax="true" type="submit"/>
+
+                        </p:tab>
+
+                    </p:tabView>
+                </h:form>
+                </div>
+<!--                /parking -->
+            </div>
+
         </p:panel>
-
-        <h3>Válasszon parkolót:</h3>
-        <h:form id="tabForm">
-            <p:tabView var="parkingDetails" value="#{parkingView.parkingDetailsList}">
-                <p:tab title="#{parkingDetails.parkingLot.name}">
-
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <p:outputLabel for="parkFromInput" value="Parkolás kezdete:" />
-                        <p:calendar id="parkFromInput" value="#{parkingDetails.parkFrom}" pattern="yyyy-MM-dd HH:mm:ss"/>
-
-                        <p:outputLabel for="parkToInput" value="Parkolás vége:" />
-                        <p:calendar id="parkToInput"  value="#{parkingDetails.parkTo}" pattern="yyyy-MM-dd HH:mm:ss"/>
-
-                    </h:panelGrid>
-                    <p:commandButton action="#{parkingView.park(parkingDetails)}" update="carTable growl tabForm" value="Parkolás >" ajax="true" type="submit"/>
-
-                </p:tab>
-
-            </p:tabView>
-        </h:form>
-
-        <p:button value="Vissza" outcome="cars" />
-
+        <p:button value="Vissza" outcome="cars" icon="fa fa-reply"/>
     </ui:define>
 </ui:composition>

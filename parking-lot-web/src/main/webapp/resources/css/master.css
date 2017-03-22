@@ -1,0 +1,24 @@
+/* 
+    Author     : pintyo
+*/
+#masterTitle {
+
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "Arial Black", Gadget, sans-serif;
+}
+
+.pageContent {
+    margin-top: 30px;
+    max-width: 1200px;
+
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button, #carTable button {
+    margin-right: 10px;
+    font-size: 0.95em;
+}

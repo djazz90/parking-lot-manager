@@ -1,6 +1,7 @@
 package hu.davidp.interview.parking.lot.service.api.service;
 
 import hu.davidp.interview.parking.lot.service.api.exception.CarIsAlreadyInAParkingLotException;
+import hu.davidp.interview.parking.lot.service.api.exception.CarIsNotInParkingLotException;
 import hu.davidp.interview.parking.lot.service.api.exception.CarNotFoundException;
 import hu.davidp.interview.parking.lot.service.api.exception.ParkingIntervalIsIncorrectException;
 import hu.davidp.interview.parking.lot.service.api.vo.Car;
@@ -21,6 +22,8 @@ public interface CarRegistryService {
 
     boolean containsCar(String licensePlateNumber);
 
-    String deleteCar(Car car) throws CarNotFoundException, CarIsAlreadyInAParkingLotException;
+    void deleteCar(Car car) throws CarNotFoundException, CarIsAlreadyInAParkingLotException;
+
+    void deleteParkingLotInformation(Car car) throws CarNotFoundException, CarIsNotInParkingLotException;
 
 }

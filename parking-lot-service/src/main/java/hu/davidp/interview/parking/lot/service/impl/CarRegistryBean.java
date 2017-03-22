@@ -1,6 +1,7 @@
 package hu.davidp.interview.parking.lot.service.impl;
 
 import hu.davidp.interview.parking.lot.service.api.exception.CarIsAlreadyInAParkingLotException;
+import hu.davidp.interview.parking.lot.service.api.exception.CarIsNotInParkingLotException;
 import hu.davidp.interview.parking.lot.service.api.exception.CarNotFoundException;
 import hu.davidp.interview.parking.lot.service.api.exception.ParkingIntervalIsIncorrectException;
 import hu.davidp.interview.parking.lot.service.api.service.CarRegistryService;
@@ -56,17 +57,17 @@ public class CarRegistryBean implements CarRegistryService {
     }
 
     @Override
-    public String deleteCar(final Car car) throws CarNotFoundException, CarIsAlreadyInAParkingLotException {
+    public void deleteCar(final Car car) throws CarNotFoundException, CarIsAlreadyInAParkingLotException {
         if (car != null) {
             if (car.getActualParkingLot() != null) {
                 throw new CarIsAlreadyInAParkingLotException("Olyan autó nem törölhető, ami parkolóban van!");
             }
             if (WebAppData.getCars().contains(car)) {
                 WebAppData.getCars().remove(car);
-                return car.getLicensePlateNumber();
             }
+        } else {
+            throw new CarNotFoundException("Nincs ilyen autó az adatbázisban!");
         }
-        throw new CarNotFoundException("Nincs ilyen autó az adatbázisban!");
     }
 
     @Override
@@ -84,6 +85,20 @@ public class CarRegistryBean implements CarRegistryService {
         actualCar.setActualParkingLot(parkingLot);
         actualCar.setParkingFrom(parkingFrom);
         actualCar.setParkingTo(parkingTo);
+    }
+
+    @Override
+    public void deleteParkingLotInformation(final Car car) throws CarNotFoundException, CarIsNotInParkingLotException {
+        if (car != null && WebAppData.getCars().contains(car)) {
+            if (car.getActualParkingLot() == null) {
+                throw new CarIsNotInParkingLotException("Az autó nincs parkolóban!");
+            }
+            car.setActualParkingLot(null);
+            car.setParkingFrom(null);
+            car.setParkingTo(null);
+        } else {
+            throw new CarNotFoundException("Nincs ilyen autó az adatbázisban!");
+        }
     }
 
 }
